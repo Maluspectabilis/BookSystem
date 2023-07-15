@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+接口式开发：
+1.方法名称要保证和映射文件的sql语句的statement一致
+2.namespace的值必须是接口的全路径
+-->
+<mapper namespace="com.itheima.dao.BookMapper">
+
+    <insert id="addBook" parameterType="com.itheima.pojo.Book">
+        insert into book(bookName,bookPrice,author,number) values(#{bookName},#{bookPrice},#{author},#{number})
+    </insert>
+
+    <select id="showAll" resultType="com.itheima.pojo.Book">
+        select * from book
+    </select>
+
+    <select id="showOne" resultType="com.itheima.pojo.Book" parameterType="String">
+        select * from book where bookName=#{bookName}
+    </select>
+
+    <update id="updateBook" parameterType="Book">
+        update book set bookName=#{bookName},bookPrice=#{bookPrice},author=#{author},number=#{number} where bookName=#{bookName}
+    </update>
+
+    <delete id="deleteBook" parameterType="String">
+        delete from book where bookName=#{bookName}
+    </delete>
+
+</mapper>
+

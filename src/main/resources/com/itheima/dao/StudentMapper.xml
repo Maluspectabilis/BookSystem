@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+接口式开发：
+1.方法名称要保证和映射文件的sql语句的statement一致
+2.namespace的值必须是接口的全路径
+-->
+<mapper namespace="com.itheima.dao.StudentMapper">
+
+    <insert id="addStudent" parameterType="com.itheima.pojo.Student">
+        insert into student(studentName,studentNumber,password,age,sex,major,account) values(#{studentName},#{studentNumber},#{password},#{age},#{sex},#{major},#{account})
+    </insert>
+
+    <select id="showAll" resultType="com.itheima.pojo.Student">
+        select * from student
+    </select>
+
+    <select id="showOne" resultType="com.itheima.pojo.Student" parameterType="String">
+        select * from student where account=#{account}
+    </select>
+
+    <select id="selectStudentByAccountAndPassword" resultType="com.itheima.pojo.Student">
+        select * from student where account=#{account} and password = #{password} limit 1
+    </select>
+
+    <update id="updateStudent" parameterType="Student">
+        update student set studentName=#{studentName},studentNumber=#{studentNumber},password=#{password},age=#{age},sex=#{sex},major=#{major},account=#{account} where account=#{account}
+    </update>
+
+    <delete id="deleteStudent" parameterType="String">
+        delete from student where account=#{account}
+    </delete>
+
+
+
+</mapper>
+

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!--
+            注解驱动
+            不光显示配置了映射器和适配器
+            还支持很多其他操作，例如json
+        -->
+    <!--    <mvc:annotation-driven></mvc:annotation-driven>-->
+
+    <!--注解扫描-->
+    <context:component-scan base-package="com.itheima.controller"></context:component-scan>
+
+    <!--注解驱动，支持json-->
+    <mvc:annotation-driven></mvc:annotation-driven>
+
+    <!--释放静态资源-->
+    <!--    <mvc:resources mapping="/js/**" location="/js/"></mvc:resources>-->
+    <mvc:default-servlet-handler></mvc:default-servlet-handler>
+
+    <!--视图解析器-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/"></property>
+        <property name="suffix" value=".jsp"></property>
+    </bean>
+
+<!--    &lt;!&ndash;简单异常处理器&ndash;&gt;
+    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        &lt;!&ndash;配置页面和异常的映射关系&ndash;&gt;
+        <property name="exceptionMappings">
+            <props>
+                <prop key="java.lang.NullPointerException">nullPointerExp.jsp</prop>
+                <prop key="java.io.IOException">IOExp.jsp</prop>
+            </props>
+        </property>
+        &lt;!&ndash;默认异常处理页面&ndash;&gt;
+        <property name="defaultErrorView" value="defaultExp.jsp"></property>
+        &lt;!&ndash;配置异常变量名&ndash;&gt;
+        <property name="exceptionAttribute" value="exp"></property>
+    </bean>-->
+
+    <mvc:interceptors>
+       <!-- <mvc:interceptor>
+            <mvc:mapping path="/demo1"/>
+            <bean class="com.com.itheima.interceptors.CustomInterceptor"></bean>
+        </mvc:interceptor>-->
+
+        <bean class="com.itheima.interceptors.LoginInterceptor"></bean>
+    </mvc:interceptors>
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="utf-8"></property>
+        <property name="maxUploadSize" value="8172000"></property>
+    </bean>
+
+</beans>
